@@ -48,13 +48,6 @@ jobs:
           type=semver,pattern={{major}}
           type=raw,value=latest,enable={{is_default_branch}}
 
-    - name: Get Camoufox URL
-      id: camoufox
-      run: |
-        # 从 models.json 或其他配置文件中获取 Camoufox URL
-        # 这里使用一个示例 URL，你可以根据实际情况修改
-        echo "CAMOUFOX_URL=https://github.com/daijro/camoufox/releases/download/v0.3.5/camoufox-x86_64-unknown-linux-gnu.tar.gz" >> $GITHUB_ENV
-
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
@@ -64,7 +57,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          CAMOUFOX_URL=${{ env.CAMOUFOX_URL }}
+          CAMOUFOX_URL=https://github.com/daijro/camoufox/releases/download/v0.3.5/camoufox-x86_64-unknown-linux-gnu.tar.gz
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
