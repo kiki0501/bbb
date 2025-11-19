@@ -194,12 +194,19 @@ class BrowserManager {
       "--safebrowsing-disable-auto-update",
     ];
 
-    // 使用 Playwright 的默认浏览器路径
     if (this.config.browserExecutablePath) {
       this.browserExecutablePath = this.config.browserExecutablePath;
     } else {
-      // 不设置 browserExecutablePath，让 Playwright 使用默认安装的浏览器
-      this.browserExecutablePath = null;
+      const platform = os.platform();
+      if (platform === "linux") {
+        this.browserExecutablePath = path.join(
+          __dirname,
+          "camoufox-linux",
+          "camoufox"
+        );
+      } else {
+        throw new Error(`Unsupported operating system: ${platform}`);
+      }
     }
   }
 

@@ -39,8 +39,8 @@ USER node
 EXPOSE 7860
 EXPOSE 9998
 
-# 设置环境变量 - Playwright 会自动找到浏览器
-# ENV CAMOUFOX_EXECUTABLE_PATH=/app/camoufox-linux/camoufox
+# 设置环境变量
+ENV CAMOUFOX_EXECUTABLE_PATH=/app/camoufox-linux/camoufox
 
 # 定义容器启动命令
 CMD ["node", "unified-server.js"]
