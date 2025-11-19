@@ -52,6 +52,8 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          CAMOUFOX_URL=https://github.com/Ellinav/ais2api/releases/download/v1.0/camoufox-linux.tar.gz
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
