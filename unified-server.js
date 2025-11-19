@@ -213,26 +213,16 @@ class BrowserManager {
   async launchOrSwitchContext(authIndex) {
     if (!this.browser) {
       this.logger.info("🚀 [Browser] 浏览器实例未运行，正在进行首次启动...");
-      
-      const launchOptions = {
-        headless: true,
-        args: this.launchArgs,
-      };
-      
-      // 只有在指定了浏览器路径时才添加 executablePath
-      if (this.browserExecutablePath) {
-        if (!fs.existsSync(this.browserExecutablePath)) {
-          throw new Error(
-            `Browser executable not found at path: ${this.browserExecutablePath}`
-          );
-        }
-        launchOptions.executablePath = this.browserExecutablePath;
-        this.logger.info(`[Browser] 使用自定义浏览器路径: ${this.browserExecutablePath}`);
-      } else {
-        this.logger.info(`[Browser] 使用 Playwright 默认浏览器`);
+      if (!fs.existsSync(this.browserExecutablePath)) {
+        throw new Error(
+          `Browser executable not found at path: ${this.browserExecutablePath}`
+        );
       }
-      
-      this.browser = await firefox.launch(launchOptions);
+      this.browser = await firefox.launch({
+        headless: true,
+        executablePath: this.browserExecutablePath,
+        args: this.launchArgs,
+      });
       this.browser.on("disconnected", () => {
         this.logger.error("❌ [Browser] 浏览器意外断开连接！(可能是资源不足)");
         this.browser = null;
