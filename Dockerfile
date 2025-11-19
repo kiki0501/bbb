@@ -19,7 +19,10 @@ RUN npm install --production
 # 3. 【核心优化】将浏览器下载和解压作为独立的一层。
 # 只要CAMOUFOX_URL不变，这一层就会被缓存。这层体积最大，缓存命中至关重要。
 ARG CAMOUFOX_URL
-RUN curl -sSL ${CAMOUFOX_URL} -o camoufox-linux.tar.gz && \
+RUN curl -sSL -f ${CAMOUFOX_URL} -o camoufox-linux.tar.gz || \
+    (echo "Failed to download Camoufox. URL: ${CAMOUFOX_URL}" && exit 1) && \
+    ls -lh camoufox-linux.tar.gz && \
+    head -c 100 camoufox-linux.tar.gz | od -c && \
     tar -xf camoufox-linux.tar.gz && \
     rm camoufox-linux.tar.gz && \
     chmod +x /app/camoufox-linux/camoufox
