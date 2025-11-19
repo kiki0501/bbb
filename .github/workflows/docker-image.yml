@@ -57,7 +57,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          CAMOUFOX_URL=https://github.com/daijro/camoufox/releases/download/v0.4.1/camoufox-x86_64-unknown-linux-gnu.tar.gz
+          CAMOUFOX_URL=https://github.com/daijro/camoufox/releases/download/v0.4.1/camoufox-x86_64-unknown-linux-gnu.tar.xz
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
