@@ -20,7 +20,8 @@ RUN npm install --production
 # 只要CAMOUFOX_URL不变，这一层就会被缓存。这层体积最大，缓存命中至关重要。
 ARG CAMOUFOX_URL
 RUN curl -sSL ${CAMOUFOX_URL} -o camoufox-linux.tar.gz && \
-    tar -xzf camoufox-linux.tar.gz && \
+    file camoufox-linux.tar.gz && \
+    tar -xf camoufox-linux.tar.gz && \
     rm camoufox-linux.tar.gz && \
     chmod +x /app/camoufox-linux/camoufox
 
